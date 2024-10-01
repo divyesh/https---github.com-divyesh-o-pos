@@ -1,0 +1,15 @@
+<div class="login-parent">
+    <div class="comic-login-card">
+        <div class="card-header">
+          <h2>Login</h2>
+        </div>
+        <form class="card-body form-group" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <input type="text" formControlName="email" name="email" placeholder="username" required>
+          <input type="password" formControlName="password" name="password" placeholder="password" required>
+          <button type="submit" class="login-btn">Login</button>
+        </form>
+        <div class="card-footer">
+          <p>Don't have an account? <a href="#">Sign up</a></p>
+        </div>
+      </div>
+    </div>

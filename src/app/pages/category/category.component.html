@@ -1,0 +1,9 @@
+<div class="cat-parent">
+    <div class="card" style="width: 18rem;">
+        <ul class="list-group list-group-flush">
+            @for (item of categories; track $index) {
+                <li class="list-group-item">{{item.categoryName}}</li>
+            }
+        </ul>
+      </div>
+</div>
