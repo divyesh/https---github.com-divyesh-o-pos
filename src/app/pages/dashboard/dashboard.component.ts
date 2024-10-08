@@ -33,8 +33,20 @@ export class DashboardComponent implements OnInit {
   onProductClick(item: Product) {
     var totalPrice = item.minimumUnitPrice * item.minimumUnitToSale;
     var newItem = new shoppingCart(0, item.id, item.productName, item.productUnit, item.minimumUnitToSale, item.minimumUnitPrice, totalPrice, 1);
-    this.carts.push(newItem);
-    console.log(JSON.stringify(this.carts));
+
+    const foundProduct = this.carts.find((it) => it.productId == item.id);
+    if (!foundProduct) {
+      this.carts.push(newItem);
+    }else{
+      
+      this.carts.forEach((element, index) => {
+        if(element.productId === item.id) {
+            this.carts[index].quantity++;
+            this.carts[index].totalPrice =this.carts[index].quantity * this.carts[index].price;
+        }
+    });
+    }
+
   }
   private loadProductCategories() {
     this.api.getAllCategories$().subscribe((res) => {

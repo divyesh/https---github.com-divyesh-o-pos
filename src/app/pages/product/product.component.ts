@@ -23,7 +23,6 @@ export class ProductComponent {
   }
 
   onClick(item:Product){
-    console.log('On product click '+item.id);
     this.selectProduct.emit(item);
   }
 }
