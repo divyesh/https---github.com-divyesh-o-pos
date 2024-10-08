@@ -1,10 +1,21 @@
- 
 <div class="container">
-    <div class="row">
-        <div class="col-sm">1</div>
-        <div class="col-sm">2</div>
-        <div class="col-sm">
-            <app-category></app-category>  
-        </div>
+  <div class="row" style="margin: 40px;">
+    <div class="col-lg-3">
+        <app-cart [cartItems]="carts"></app-cart>
     </div>
+    <div class="col-lg-5">
+      <app-product
+        (selectProduct)="onProductClick($event)"
+        [currency]="currencySpecialChar"
+        [products]="products"
+      ></app-product>
+    
+    </div>
+    <div class="col-lg-3">
+      <app-category
+        (selectCategory)="onProductCategoryClick($event)"
+        [categories]="categories"
+      ></app-category>
+    </div>
+  </div>
 </div>

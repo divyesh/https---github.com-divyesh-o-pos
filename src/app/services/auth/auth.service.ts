@@ -13,6 +13,7 @@ export class AuthService {
     return this.httpClient.post<AuthResponse>(`${environment.apiUrl}/Auth/login`, data)
       .pipe(tap((result) => {
         localStorage.setItem('authUser', JSON.stringify(result));
+        localStorage.setItem('currency',result.currencySpecialChar);
       }));
   }
   logout() {

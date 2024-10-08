@@ -18,14 +18,13 @@ export class ApiService {
     return this.http.get<ProductCategory[]>(url,{headers});
   }
 
-  public getProducts(categoryId: number) {
+  public getProducts$(categoryId: number) {
     const headers = { "Authorization": 'Bearer ' + this.getToken()};
     return this.http.get<Product[]>(environment.apiUrl + '/Product/' + categoryId, {headers});
   }
   getToken(): any {
     const localStore = localStorage.getItem('authUser') as string;
     let authObj = JSON.parse(localStore);
-    const headers = { 'Authorization': 'Bearer ' + authObj['token'] }
     return authObj['token'];
   }
 }

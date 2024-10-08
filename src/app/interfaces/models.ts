@@ -67,3 +67,32 @@ export interface ProductTax extends RecordStatus {
   fromDate?: Date;
   toDate?: Date;
 }
+
+export class shoppingCart {
+  id: number;
+  productId: number;
+  productName: string;
+  unit: string;
+  quantity: number;
+  price: number;
+  totalPrice: number;
+  tax: number;
+  constructor(
+    id: number,
+    productId: number,
+    productName: string,
+    unit: string,
+    quantity: number,
+    price: number,
+    totalPrice: number,
+    tax: number) {
+    this.id = id;
+    this.productId = productId;
+    this.productName = productName;
+    this.unit = unit;
+    this.quantity = quantity;
+    this.price = price;
+    this.totalPrice = totalPrice;
+    this.tax = tax;
+  }
+}

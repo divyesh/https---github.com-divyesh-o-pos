@@ -1,0 +1,19 @@
+
+<div class="cat-parent cart-parent">
+    <div class="card" style="width: 14rem;">
+        <div class="card-header text-center">
+            Billing Item(s)
+          </div>
+        <ul class="list-group list-group-flush">
+            @for (item of cartItems; track $index) {
+                <li class="list-group-item" (click)="onCartClick(item.id)" >
+                <div class="row">
+                    <div class="col-md-6">{{item.productName}}</div>
+                    <div class="col-md-3">{{item.quantity}}x</div>
+                    <div class="col-md-3">{{item.price}}</div>
+                </div>    
+                </li>
+            }
+        </ul>
+      </div>
+</div>

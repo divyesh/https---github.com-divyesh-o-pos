@@ -2,10 +2,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     margin: 0;
-    font-family: 'Comic Sans MS', sans-serif;
-    background: #ff9a8b;
-    background: linear-gradient(135deg, #ff9a8b 0%, #ff6a88 55%, #ff99ac 100%);
   }
+
+  
   

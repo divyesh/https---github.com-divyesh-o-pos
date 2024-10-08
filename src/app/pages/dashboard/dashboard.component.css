@@ -1,0 +1,8 @@
+.cat-parent {
+    display: flex;
+    justify-content: center;
+    height: 200vh;
+    margin: 0;
+  }
+
+  

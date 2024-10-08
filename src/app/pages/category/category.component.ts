@@ -1,22 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api/api.service';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ProductCategory } from '../../interfaces/models';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css'
 })
 export class CategoryComponent implements OnInit {
 
-  public categories: ProductCategory[] =[]; 
-  constructor(private api: ApiService) { }
+  @Input() categories?: ProductCategory[] = [];
+  @Output() selectCategory = new EventEmitter<number>();
+
+  selected: number = 0;
 
   ngOnInit(): void {
-    this.api.getAllCategories$().subscribe((res)=>{
-      this.categories=res;
-    });;
   }
+
+  onSelect(id: number) {
+    this.selectCategory.emit(id);
+  }
+
+  isActive(id: number) {
+    return this.selected === id;
+  };
+
 }
