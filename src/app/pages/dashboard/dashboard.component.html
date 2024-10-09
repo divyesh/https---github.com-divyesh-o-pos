@@ -1,15 +1,46 @@
-<div class="container">
-  <div class="row" style="margin: 40px;">
-    <div class="col-lg-3">
-        <app-cart [cartItems]="carts"></app-cart>
+<div class="container pos-container">
+  <div class="row" style="margin: 40px">
+    <div
+      class="col-lg-3 cart-parent"
+      style="max-height: 600px; background-color: antiquewhite"
+    >
+      <div
+        class="d-flex align-items-start flex-column mb-3"
+        style="height: 600px"
+      >
+        <div class="p-2 card-header text-center">Billing Item(s) <span class="badge bg-primary rounded-pill">{{totalItems}}</span></div>
+        <div class="mb-auto p-2 overflow-y-scroll">
+          <app-cart [cartItems]="carts"></app-cart>
+        </div>
+        <div class="row">
+            <div class="row">
+                <div class="col-sm-6">Subtotal:</div>
+                <div class="col-sm-6">{{subtotal}}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">Discount:</div>
+                <div class="col-sm-6">{{discount}}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">Tax:</div>
+                <div class="col-sm-6">{{tax}}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">Total:</div>
+                <div class="col-sm-6">{{total}}</div>
+            </div>            
+        </div>
+      </div>
     </div>
-    <div class="col-lg-5">
+    <div
+      class="col-lg-5 row-cols-sm-3 g-4 overflow-y-scroll"
+      style="max-height: 600px"
+    >
       <app-product
         (selectProduct)="onProductClick($event)"
         [currency]="currencySpecialChar"
         [products]="products"
       ></app-product>
-    
     </div>
     <div class="col-lg-3">
       <app-category

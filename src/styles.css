@@ -3,3 +3,7 @@ body{
     background-image: url("../public/background/ai-background-20241001.jpeg");
     font-family: 'Comic Sans MS', sans-serif;
 }
+
+.pos-container{
+    max-height: 600px;
+}

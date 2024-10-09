@@ -23,6 +23,7 @@ export class ProductComponent {
   }
 
   onClick(item:Product){
+    console.log('Product: '+JSON.stringify(item));
     this.selectProduct.emit(item);
   }
 }
