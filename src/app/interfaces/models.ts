@@ -36,6 +36,7 @@ export interface ProductCategory extends RecordStatus {
   secondLanguageCategoryName?: string;
   parentClientProductCategory?: string;
   displayOrder: number;
+  totalProducts: number;
 }
 
 export interface Product extends RecordStatus {

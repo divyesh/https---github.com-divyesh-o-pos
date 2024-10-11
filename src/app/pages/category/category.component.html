@@ -1,11 +1,11 @@
 <div class="cat-parent">
     <div class="card" style="width: 14rem;">
         <div class="card-header text-center" (click)="onSelect(0)">
-            Categories
+            Categories  <span class="badge bg-primary rounded-pill">{{ totalCategories }}</span>
           </div>
         <ul class="list-group list-group-flush">
             @for (item of categories; track $index) {
-                <li class="list-group-item" (click)="onSelect(item.id)" [ngClass]="{active: isActive(item.id)}" >{{item.categoryName}}</li>
+                <li class="list-group-item" (click)="onSelect(item.id)" [ngClass]="{'active': isActive(item.id)}" >{{item.categoryName}} <span class="badge bg-warning rounded-pill">{{ item.totalProducts  }}</span> </li>
             }
         </ul>
       </div>

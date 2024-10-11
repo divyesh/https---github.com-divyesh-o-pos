@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 import { ApiService } from '../../services/api/api.service';
 import { shoppingCart, Product, ProductCategory, ProductTax } from '../../interfaces/models';
 import { CategoryComponent } from '../category/category.component';
@@ -25,7 +26,7 @@ export class DashboardComponent implements OnInit {
   public tax: number = 0;
   public total: number = 0;
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService,private _decimalPipe: DecimalPipe) { }
 
   ngOnInit(): void {
     this.currencySpecialChar = localStorage.getItem('currency') ?? '$';
@@ -78,6 +79,7 @@ export class DashboardComponent implements OnInit {
       }
       this.total= this.subtotal+this.tax;
     });
+    
   }
   private loadProductCategories() {
     this.api.getAllCategories$().subscribe((res) => {
@@ -90,4 +92,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  transformDecimal(num:number){
+    return this._decimalPipe.transform(num,'1.2-2');
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnChanges, Input, EventEmitter, Output } from '@angular/core';
 import { ProductCategory } from '../../interfaces/models';
 import { CommonModule } from '@angular/common';
 
@@ -9,17 +9,20 @@ import { CommonModule } from '@angular/common';
   templateUrl: './category.component.html',
   styleUrl: './category.component.css'
 })
-export class CategoryComponent implements OnInit {
+export class CategoryComponent implements OnChanges {
 
   @Input() categories?: ProductCategory[] = [];
   @Output() selectCategory = new EventEmitter<number>();
 
   selected: number = 0;
+  totalCategories: number | undefined = 0;
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
+    this.totalCategories = this.categories?.length;
   }
 
   onSelect(id: number) {
+    this.selected = id;
     this.selectCategory.emit(id);
   }
 
