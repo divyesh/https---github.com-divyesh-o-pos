@@ -26,7 +26,7 @@ export class DashboardComponent implements OnInit {
   public tax: number = 0;
   public total: number = 0;
 
-  constructor(private api: ApiService,private _decimalPipe: DecimalPipe) { }
+  constructor(private api: ApiService, private _decimalPipe: DecimalPipe) { }
 
   ngOnInit(): void {
     this.currencySpecialChar = localStorage.getItem('currency') ?? '$';
@@ -48,7 +48,6 @@ export class DashboardComponent implements OnInit {
         if (e.taxPercentage != undefined) {
           taxes += e.taxPercentage;
         }
-        console.log('Tax: ' + taxes);
       });
     }
     var newItem = new shoppingCart(0, item.id, item.productName, item.productUnit, item.minimumUnitToSale, item.minimumUnitPrice, totalPrice, taxes);
@@ -67,6 +66,14 @@ export class DashboardComponent implements OnInit {
     }
     this.calculateTotal();
   }
+
+  onClearButtonClick() {
+    while (this.carts.length > 0) {
+      this.carts.pop();
+    }
+    this.totalItems = 0;
+    this.calculateTotal();
+  }
   private calculateTotal() {
     this.subtotal = 0;
     this.tax = 0;
@@ -77,9 +84,9 @@ export class DashboardComponent implements OnInit {
       if (element.tax > 0) {
         this.tax = (this.subtotal) * (element.tax / 100);
       }
-      this.total= this.subtotal+this.tax;
+      this.total = this.subtotal + this.tax;
     });
-    
+
   }
   private loadProductCategories() {
     this.api.getAllCategories$().subscribe((res) => {
@@ -92,7 +99,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  transformDecimal(num:number){
-    return this._decimalPipe.transform(num,'1.2-2');
+  transformDecimal(num: number) {
+    return this._decimalPipe.transform(num, '1.2-2');
   }
 }

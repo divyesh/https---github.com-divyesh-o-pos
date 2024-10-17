@@ -6,7 +6,7 @@
     >
       <div class="card border-success mb-3" style="max-width: 18rem;margin-top: 5px;">
         <div class="card-header bg-transparent border-success">
-          Billing Item(s)
+         <strong>Billing Item(s)</strong>
           <span class="badge bg-primary rounded-pill">{{ totalItems }}</span>
         </div>
         <div class="text-success overflow-y-scroll" style="height: 430px">
@@ -15,19 +15,19 @@
         <div class="card-footer bg-transparent border-success">
           <div class="row">
             <div class="row">
-              <div class="col-sm-6">Subtotal:</div>
+              <div class="col-sm-6"><strong>Subtotal:</strong></div>
               <div class="col-sm-6">{{ subtotal }}</div>
             </div>
             <div class="row">
-              <div class="col-sm-6">Discount:</div>
+              <div class="col-sm-6"><strong>Discount:</strong></div>
               <div class="col-sm-6">{{ discount }}</div>
             </div>
             <div class="row">
-              <div class="col-sm-6">Tax:</div>
+              <div class="col-sm-6"><strong>Tax:</strong></div>
               <div class="col-sm-6">{{transformDecimal(tax) }}</div>
             </div>
             <div class="row">
-              <div class="col-sm-6">Total:</div>
+              <div class="col-sm-6"><strong>Total:</strong></div>
               <div class="col-sm-6">{{ total }}</div>
             </div>
           </div>
@@ -35,7 +35,7 @@
       </div>
     </div>
     <div
-      class="col-lg-5 row-cols-sm-3 g-4 overflow-y-scroll"
+      class="col-lg-5 row-cols-sm-2 g-4 overflow-y-scroll"
       style="max-height: 600px"
     >
       <app-product
@@ -50,5 +50,13 @@
         [categories]="categories"
       ></app-category>
     </div>
+  </div>
+  <div class="row" style="margin: 40px; max-height: 630px; background-color: antiquewhite">
+    <div class="col-md-6" style="padding: 20px;">
+      <button type="button" class="btn btn-danger btn-large"  (click)="onClearButtonClick()">Clear Order</button>
+      <button type="button" class="btn btn-warning btn-large">Pending Order(s)</button>
+      <button type="button" class="btn btn-success btn-large">Charge</button>
+    </div>
+    <div class="col-md-6">Right</div>
   </div>
 </div>
