@@ -97,3 +97,15 @@ export class shoppingCart {
     this.tax = tax;
   }
 }
+
+export interface PaymentModel {
+  id: number;
+  type: string;
+  createdDate?: Date;
+  updatedDate?: Date;
+  isSelected: boolean;
+}
+
+export interface paymentInfo {
+  
+}

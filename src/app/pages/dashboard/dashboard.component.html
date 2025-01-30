@@ -54,9 +54,18 @@
   <div class="row" style="margin: 40px; max-height: 630px; background-color: antiquewhite">
     <div class="col-md-6" style="padding: 20px;">
       <button type="button" class="btn btn-danger btn-large"  (click)="onClearButtonClick()">Clear Order</button>
-      <button type="button" class="btn btn-warning btn-large">Pending Order(s)</button>
-      <button type="button" class="btn btn-success btn-large">Charge</button>
+      <button type="button" class="btn btn-warning btn-large" >Pending Order(s)</button>
+      <button type="button" class="btn btn-success btn-large" (click)="onChargeCustomerButtonClick()" >Charge</button>
     </div>
     <div class="col-md-6">Right</div>
   </div>
 </div>
+<app-charge-customer #chargeCustomerModal
+  [subtotal]="subtotal"
+  [discount]="discount"
+  [tax]="tax"
+  [total]="total"
+  [carts]="carts"
+  *ngIf="isChargeDialogVisible" (close)="hideChargeCustomer()"
+  />
+

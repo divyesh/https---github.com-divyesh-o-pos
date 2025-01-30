@@ -1,19 +1,20 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
+import { Component, ElementRef, OnInit, ViewChild,AfterViewInit } from '@angular/core';
+import { DecimalPipe,NgIf } from '@angular/common';
 import { ApiService } from '../../services/api/api.service';
 import { shoppingCart, Product, ProductCategory, ProductTax } from '../../interfaces/models';
 import { CategoryComponent } from '../category/category.component';
 import { ProductComponent } from '../product/product.component';
 import { CartComponent } from "../cart/cart.component";
+import { ChargeCustomerComponent } from '../charge-customer/charge-customer.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CategoryComponent, ProductComponent, CartComponent],
+  imports: [CategoryComponent, ProductComponent, CartComponent,ChargeCustomerComponent,NgIf],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit ,AfterViewInit{
 
   public currencySpecialChar: string | null = '$';
   public categories: ProductCategory[] = [];
@@ -25,15 +26,20 @@ export class DashboardComponent implements OnInit {
   public discount: number = 0;
   public tax: number = 0;
   public total: number = 0;
+  public isChargeDialogVisible = false;
 
-  constructor(private api: ApiService, private _decimalPipe: DecimalPipe) { }
+  constructor(private api: ApiService, private _decimalPipe: DecimalPipe) { 
+  }
 
   ngOnInit(): void {
     this.currencySpecialChar = localStorage.getItem('currency') ?? '$';
     this.loadProductCategories();
     this.updateProduct(0);
   }
-
+  public ngAfterViewInit(): void
+  {
+    
+  }
   onProductCategoryClick(id: number) {
     this.updateProduct(id);
   }
@@ -74,6 +80,15 @@ export class DashboardComponent implements OnInit {
     this.totalItems = 0;
     this.calculateTotal();
   }
+
+  onChargeCustomerButtonClick() {
+    this.isChargeDialogVisible = true;
+    console.log('dash ChargeCustomerComponent ' + this.total);
+  }
+  hideChargeCustomer() {
+    this.isChargeDialogVisible = false;
+  }
+
   private calculateTotal() {
     this.subtotal = 0;
     this.tax = 0;

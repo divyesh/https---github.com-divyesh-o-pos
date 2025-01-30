@@ -1,0 +1,51 @@
+<div class="modal-overlay card" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>Process Payment</h2>
+    <div class="modal-body">
+      <div class="row">
+        <div class="card">
+          <div class="card-header">Payment Types</div>
+          <div class="card-body">
+            @for (item of paymentTypes; track $index) {
+            <div class="col-md-4">
+              <input
+                id="i"
+                type="radio"
+                [value]="item.type"
+                name="paymentType"
+                formControlName="paymentType"
+              />
+              <label>{{ item.type }}</label>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label for="subtotal">Subtotal</label>
+        </div>
+        <div class="col-md-8">
+          {{ subtotal }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label for="subtotal">Tax</label>
+        </div>
+        <div class="col-md-8">
+          {{ transformDecimal(tax) }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <label for="subtotal">Total</label>
+        </div>
+        <div class="col-md-8">
+          {{ total }}
+        </div>
+      </div>
+      <button class="btn btn-success" (click)="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
