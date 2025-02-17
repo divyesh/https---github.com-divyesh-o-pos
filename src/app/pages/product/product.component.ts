@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Product } from '../../interfaces/models';
+import { IProduct } from '../../interfaces/models';
 import { ApiService } from '../../services/api/api.service';
 
 @Component({
@@ -11,9 +11,9 @@ import { ApiService } from '../../services/api/api.service';
 })
 export class ProductComponent {
 
-  @Input() products?: Product[] = [];
+  @Input() products?: IProduct[] = [];
   @Input() currency?: string | null = '$';
-  @Output() selectProduct = new EventEmitter<Product>();
+  @Output() selectProduct = new EventEmitter<IProduct>();
   constructor(private api: ApiService) { }
 
   updateProducts(id: number) {
@@ -22,7 +22,7 @@ export class ProductComponent {
     });;
   }
 
-  onClick(item:Product){
+  onClick(item:IProduct){
     console.log('Product: '+JSON.stringify(item));
     this.selectProduct.emit(item);
   }

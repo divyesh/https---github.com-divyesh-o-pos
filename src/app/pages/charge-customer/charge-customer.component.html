@@ -1,51 +1,86 @@
-<div class="modal-overlay card" (click)="closeModal()">
+<div class="modal modal-overlay card form-check">
+
   <div class="modal-content" (click)="$event.stopPropagation()">
-    <h2>Process Payment</h2>
-    <div class="modal-body">
-      <div class="row">
+    <div class="modal-header">
+      <h5 class="modal-title" id="processPaymentModalLabel"><span class="glyphicon glyphicon-book"></span>Process Payment</h5>
+    </div>
+    <br/>
+    <div class="row card-body">
+      <div class="col input-group">
+        <span class="input-group-text">Cash</span>
+        <input type="text" aria-label="Cash" class="form-control" [(ngModel)]="cash" (ngModelChange)="onCashInputChange($event)">        
+        <span class="input-group-text">Change</span>
+        <input type="text" aria-label="change" class="form-control" placeholder="change" [(ngModel)]="cashChange" disabled>
+      </div>     
+    </div>
+    <br>
+    <form [formGroup]="customerOrderForm" (ngSubmit)="onSubmitOrder()">
+      <div class="modal-body">
         <div class="card">
-          <div class="card-header">Payment Types</div>
           <div class="card-body">
-            @for (item of paymentTypes; track $index) {
-            <div class="col-md-4">
-              <input
-                id="i"
-                type="radio"
-                [value]="item.type"
-                name="paymentType"
-                formControlName="paymentType"
-              />
-              <label>{{ item.type }}</label>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" id="discount" name="discount" [(ngModel)]="discount"
+                formControlName="discount" placeholder="Discount" aria-label="Discount" aria-describedby="discount">
+              <button class="btn btn-info" type="button" (click)="applyDiscount()">Apply Discount</button>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="card">
+          <div class="card-body text-start">
+            <span class="badge text-bg-light">Order Status</span>
+            @for (item of orderStatuses; track $index) {
+            <div class="form-check form-check-inline">
+              <input id="orderStatusId" class="form-check-input" type="radio" [value]="item.id" name="orderStatusId"
+                formControlName="orderStatusId">
+              <label class="form-check-label" for="orderStatusId">{{ item.status }}</label>
             </div>
             }
           </div>
         </div>
+        <br />
+        <div class="card">
+          <div class="card-body text-start">
+            <span class="badge text-bg-light">Payment Types</span>
+            @for (item of paymentTypes; track $index) {
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="paymentTypeId" id="paymentTypeId" [value]="item.id"
+                formControlName="paymentTypeId">
+              <label class="form-check-label" for="paymentTypeId">{{ item.type }}</label>
+            </div>
+            }
+          </div>
+        </div>
+        <br>
+        <div class="row text-start">   
+          <ul class="list-group">
+            <li class="list-group-item">
+              <span class="badge bg-light text-dark">Subtotal:</span><mark>{{currencySpecialChar}}{{ transformDecimal(subtotal)
+                }}</mark>
+              <input id="subtotal" type="hidden" [(ngModel)]="subtotal" name="subtotal" formControlName="subtotal" />
+            </li>
+            <li class="list-group-item">
+              <span class="badge bg-light text-dark">Tax:</span>
+              <mark>{{currencySpecialChar}}{{ transformDecimal(tax) }}</mark>
+              <input id="tax" type="hidden" [(ngModel)]="tax" name="tax" formControlName="tax" />
+            </li>
+            <li class="list-group-item"><span class="badge bg-light text-dark">Discount:</span> <mark>{{transformDecimal(discount)}}</mark></li>
+            <li class="list-group-item"> <span class="badge bg-light text-dark">Total:</span>
+              <mark>{{currencySpecialChar}}{{ transformDecimal(total) }}</mark>
+              <input id="total" type="hidden" [(ngModel)]="total" name="total" formControlName="total" />
+            </li>
+          </ul>
+
+        </div>
+
       </div>
-      <div class="row">
-        <div class="col-md-4">
-          <label for="subtotal">Subtotal</label>
-        </div>
-        <div class="col-md-8">
-          {{ subtotal }}
-        </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">CHARGE
+          <span class="badge text-bg-warning">{{currencySpecialChar}}{{transformDecimal(total)}}</span>
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
       </div>
-      <div class="row">
-        <div class="col-md-4">
-          <label for="subtotal">Tax</label>
-        </div>
-        <div class="col-md-8">
-          {{ transformDecimal(tax) }}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <label for="subtotal">Total</label>
-        </div>
-        <div class="col-md-8">
-          {{ total }}
-        </div>
-      </div>
-      <button class="btn btn-success" (click)="closeModal()">Close</button>
-    </div>
+    </form>
   </div>
+
 </div>

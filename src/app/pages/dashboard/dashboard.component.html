@@ -3,37 +3,16 @@
     <div
       class="col-lg-3 cart-parent"
       style="max-height: 630px; background-color: antiquewhite"
-    >
-      <div class="card border-success mb-3" style="max-width: 18rem;margin-top: 5px;">
-        <div class="card-header bg-transparent border-success">
-         <strong>Billing Item(s)</strong>
-          <span class="badge bg-primary rounded-pill">{{ totalItems }}</span>
-        </div>
-        <div class="text-success overflow-y-scroll" style="height: 430px">
-          <app-cart [cartItems]="carts"></app-cart>
-        </div>
-        <div class="card-footer bg-transparent border-success">
-          <div class="row">
-            <div class="row">
-              <div class="col-sm-6"><strong>Subtotal:</strong></div>
-              <div class="col-sm-6">{{ subtotal }}</div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6"><strong>Discount:</strong></div>
-              <div class="col-sm-6">{{ discount }}</div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6"><strong>Tax:</strong></div>
-              <div class="col-sm-6">{{transformDecimal(tax) }}</div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6"><strong>Total:</strong></div>
-              <div class="col-sm-6">{{ total }}</div>
-            </div>
-          </div>
-        </div>
+    >      
+        <app-cart [cartItems]="carts" 
+                  [totalItems]="totalItems" 
+                  [subtotal]="subtotal"
+                  [discount]="discount"
+                  [tax]="tax"
+                  [total]="total"
+                  />
+        
       </div>
-    </div>
     <div
       class="col-lg-5 row-cols-sm-2 g-4 overflow-y-scroll"
       style="max-height: 600px"
@@ -42,7 +21,7 @@
         (selectProduct)="onProductClick($event)"
         [currency]="currencySpecialChar"
         [products]="products"
-      ></app-product>
+      />
     </div>
     <div class="col-lg-3">
       <app-category
@@ -66,6 +45,7 @@
   [tax]="tax"
   [total]="total"
   [carts]="carts"
+  [currencySpecialChar]="currencySpecialChar"
   *ngIf="isChargeDialogVisible" (close)="hideChargeCustomer()"
   />
 

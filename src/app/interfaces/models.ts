@@ -39,7 +39,7 @@ export interface ProductCategory extends RecordStatus {
   totalProducts: number;
 }
 
-export interface Product extends RecordStatus {
+export interface IProduct extends RecordStatus {
   id: number;
   clientProductCategoryId: number;
   clientProductCategory: string;
@@ -59,6 +59,22 @@ export interface Product extends RecordStatus {
   displayOrder: number;
 }
 
+export class ProductModel{
+  product: IProduct;
+  constructor(product: IProduct){
+    this.product = product;
+  }
+  getOrderDiscount():number{
+    var orderDiscount:number = 0;
+    if(this.product.discountPercentage!=0){
+      orderDiscount= this.product.minimumUnitPrice*this.product.discountPercentage/100;
+    }else{
+      orderDiscount = this.product.discountAmount+this.product.discountPercentage;
+    }
+    return orderDiscount;  
+  }
+}
+
 export interface ProductTax extends RecordStatus {
   id: number;
   clientProductId: number;
@@ -69,13 +85,18 @@ export interface ProductTax extends RecordStatus {
   toDate?: Date;
 }
 
+export interface IOrderItem {
+  
+}
+
 export class shoppingCart {
   id: number;
   productId: number;
   productName: string;
-  unit: string;
-  quantity: number;
   price: number;
+  quantity: number;
+  unit: string;
+  discount: number;
   totalPrice: number;
   tax: number;
   constructor(
@@ -86,7 +107,9 @@ export class shoppingCart {
     quantity: number,
     price: number,
     totalPrice: number,
-    tax: number) {
+    tax: number,
+    discount: number
+    ) {
     this.id = id;
     this.productId = productId;
     this.productName = productName;
@@ -95,6 +118,7 @@ export class shoppingCart {
     this.price = price;
     this.totalPrice = totalPrice;
     this.tax = tax;
+    this.discount = discount;
   }
 }
 
@@ -105,7 +129,23 @@ export interface PaymentModel {
   updatedDate?: Date;
   isSelected: boolean;
 }
+export interface OrderStatusModel extends RecordStatus {
+  id: number;
+  status: string;
+  createdDate?: Date;
+  updatedDate?: Date;
+  isSelected: boolean;
+}
 
-export interface paymentInfo {
-  
+export interface SaleModel {
+  id?: number;
+  clientBusinessId: number;
+
+}
+
+export interface OrderItemTaxModel {
+  id?: number;
+  saleItemId?: number;
+  taxLabel: string;
+  taxPercentage: number;
 }

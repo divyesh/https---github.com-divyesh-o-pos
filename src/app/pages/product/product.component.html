@@ -1,10 +1,10 @@
 <div class="row product-list">
   @for(item of products; track $index){
-  <div class="col">
+  <div class="col-md-4">
     <div class="card text-center border-dark mb-3" (click)="onClick(item)">
       <div class="card-body">
-        <h5 class="card-title">{{ item.productName }}</h5>
-        <p class="card-text card-subtitle mb-2 text-muted">
+        <p class="card-title">{{ item.productName }}</p>
+        <p class="card-text card-subtitle text-muted">
           {{ currency }}{{ item.minimumUnitPrice }}
         </p>
       </div>

@@ -1,6 +1,6 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PaymentModel, Product, ProductCategory } from '../../interfaces/models';
+import { OrderStatusModel, PaymentModel, IProduct, ProductCategory } from '../../interfaces/models';
 import { delay, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 environment
@@ -20,14 +20,17 @@ export class ApiService {
 
   public getProducts$(categoryId: number) {
     const headers = { "Authorization": 'Bearer ' + this.getToken()};
-    return this.http.get<Product[]>(environment.apiUrl + '/Product/' + categoryId, {headers});
+    return this.http.get<IProduct[]>(environment.apiUrl + '/Product/' + categoryId, {headers});
   }
 
   public getPaymentTypes$() {
     const headers = { "Authorization": 'Bearer ' + this.getToken()};
     return this.http.get<PaymentModel[]>(environment.apiUrl + '/PaymentType', {headers});
   }
-
+  public getOrderStatuses$() {
+    const headers = { "Authorization": 'Bearer ' + this.getToken()};
+    return this.http.get<OrderStatusModel[]>(environment.apiUrl + '/ClientOrderStatus', {headers});
+  }
   getToken(): any {
     const localStore = localStorage.getItem('authUser') as string;
     let authObj = JSON.parse(localStore);

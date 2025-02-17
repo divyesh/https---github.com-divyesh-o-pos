@@ -1,11 +1,41 @@
-<ul class="list-group list-group-flush">
-    @for (item of cartItems; track $index) {
-    <li class="list-group-item" (click)="onCartClick(item.id)">
+<div class="card border-success mb-3" style="max-width: 18rem;margin-top: 5px;">
+  <div class="card-header bg-transparent border-success">
+    <strong>Billing Item(s)</strong>
+     <span class="badge bg-primary rounded-pill">{{ totalItems }}</span>
+   </div>
+   <div class="text-success overflow-y-scroll" style="height: 430px">
+    <ul class="list-group list-group-flush cart-item">
+      @for (item of cartItems; track $index) {
+      <li class="list-group-item">
+        <div class="row" (click)="onCartClick(item.id)">
+          <div class="col-md-6">          
+            <span class="glyphicon glyphicon-star"></span>{{ item.productName }}
+          </div>
+          <div class="col-md-3">{{ item.quantity }}x</div>
+          <div class="col-md-3">{{ item.totalPrice }}</div>
+        </div>
+      </li>
+      }
+    </ul>
+   </div>
+   <div class="card-footer bg-transparent border-success">
+    <div class="row">
       <div class="row">
-        <div class="col-md-6">{{ item.productName }}</div>
-        <div class="col-md-3">{{ item.quantity }}x</div>
-        <div class="col-md-3">{{ item.totalPrice }}</div>
+        <div class="col-sm-6"><strong>Subtotal:</strong></div>
+        <div class="col-sm-6">{{ subtotal }}</div>
       </div>
-    </li>
-    }
-  </ul>
+      <div class="row">
+        <div class="col-sm-6"><strong>Discount:</strong></div>
+        <div class="col-sm-6">{{ discount }}</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6"><strong>Tax:</strong></div>
+        <div class="col-sm-6">{{tax}}</div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6"><strong>Total:</strong></div>
+        <div class="col-sm-6">{{ total }}</div>
+      </div>
+    </div>
+  </div>
+</div>

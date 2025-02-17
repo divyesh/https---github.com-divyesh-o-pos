@@ -1,7 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild,AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { DecimalPipe,NgIf } from '@angular/common';
 import { ApiService } from '../../services/api/api.service';
-import { shoppingCart, Product, ProductCategory, ProductTax } from '../../interfaces/models';
+import { shoppingCart, IProduct, ProductCategory, ProductTax, ProductModel } from '../../interfaces/models';
 import { CategoryComponent } from '../category/category.component';
 import { ProductComponent } from '../product/product.component';
 import { CartComponent } from "../cart/cart.component";
@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit ,AfterViewInit{
 
   public currencySpecialChar: string | null = '$';
   public categories: ProductCategory[] = [];
-  public products: Product[] = [];
+  public products: IProduct[] = [];
   public carts: shoppingCart[] = [];
 
   public totalItems: number = 0;
@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit ,AfterViewInit{
     this.updateProduct(id);
   }
 
-  onProductClick(item: Product) {
+  onProductClick(item: IProduct) {
     ++this.totalItems;
     var totalPrice = item.minimumUnitPrice * item.minimumUnitToSale;
     var taxes: number = 0;
@@ -56,7 +56,9 @@ export class DashboardComponent implements OnInit ,AfterViewInit{
         }
       });
     }
-    var newItem = new shoppingCart(0, item.id, item.productName, item.productUnit, item.minimumUnitToSale, item.minimumUnitPrice, totalPrice, taxes);
+    var product=new ProductModel(item);
+    var discount = product.getOrderDiscount();
+    var newItem = new shoppingCart(0, item.id, item.productName, item.productUnit, item.minimumUnitToSale, item.minimumUnitPrice, totalPrice, taxes,discount);
 
     const foundProduct = this.carts.find((it) => it.productId == item.id);
     if (!foundProduct) {
@@ -101,7 +103,9 @@ export class DashboardComponent implements OnInit ,AfterViewInit{
       }
       this.total = this.subtotal + this.tax;
     });
-
+    
+    this.total = this.transformDecimal(this.total);
+    this.tax = this.transformDecimal(this.tax);
   }
   private loadProductCategories() {
     this.api.getAllCategories$().subscribe((res) => {
@@ -115,6 +119,6 @@ export class DashboardComponent implements OnInit ,AfterViewInit{
   }
 
   transformDecimal(num: number) {
-    return this._decimalPipe.transform(num, '1.2-2');
+    return Number(this._decimalPipe.transform(num, '1.2-2'));
   }
 }
